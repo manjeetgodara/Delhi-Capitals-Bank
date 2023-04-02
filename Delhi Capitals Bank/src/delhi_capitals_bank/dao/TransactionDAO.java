@@ -10,5 +10,5 @@ public interface TransactionDAO {
 	 public void changePin(int oldpin,int newpin,int renewpin) throws SomethingWentWrongException,NoRecordFoundException;
 	 public void checkHistory(int pinNumber) throws SomethingWentWrongException,NoRecordFoundException;
 	 public  void transferMoney(Long accountNumber,Long daccountNumber,Long amount,int pinNumber) throws SomethingWentWrongException,NoRecordFoundException ;
-		 
+	 public void closeAccount(Long accountNumber,int pinNumber) throws SomethingWentWrongException; 
 }

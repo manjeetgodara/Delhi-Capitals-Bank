@@ -65,8 +65,75 @@ public class UserUI {
 		
 	}
 	
+	//user logout method
 	 public static void userLogout() {
 		UserLogged.UserLoggedInId=0;
+	 }
+	 
+	 
+	 //user password change method
+	 public static void changePassword(Scanner sc) {
+		 System.out.print(ConsoleColors.YELLOW_BOLD_BRIGHT+"Enter old password : ");
+   	     String oldpassword=sc.next();
+   	     System.out.print("Enter new password : ");
+   	     String newpassword=sc.next();
+   	     System.out.print("Re-enter password : ");
+   	     String renewpassword=sc.next();
+   	     
+   	    UserDAO userDAO=new UserDAOImpl();
+   	    
+   	    try {
+			userDAO.changePassword(oldpassword, newpassword, renewpassword);
+			System.out.println(ConsoleColors.BANANA_YELLOW+"Password changed Successfully!!");
+		} catch (SomethingWentWrongException | NoRecordFoundException e) {
+			
+			System.out.println(e);
+		}
+   	  
+	 }
+	 
+	 //user update details method
+	 public static void updateDetails(Scanner sc) {
+		 System.out.print(ConsoleColors.PURPLE_BOLD_BRIGHT+"Enter username : ");
+		 String username=sc.next();
+		 System.out.print("Enter name : ");
+		 String Cname=sc.next();
+		 System.out.print("Enter mobile number : ");
+		 String Cmobile=sc.next();
+		 System.out.print("Enter address : ");
+		 String Caddress=sc.next();
+		 
+		 
+		 
+		 UserDAO uDAO=new UserDAOImpl();
+	   	 
+		 try {
+			uDAO.updateDetails(username, Cname, Cmobile, Caddress);
+			System.out.println(ConsoleColors.BANANA_YELLOW+"Details updated successfully!!");
+			
+		} catch (SomethingWentWrongException e) {
+		
+			e.printStackTrace();
+		}
+		 
+	 }
+	 
+	 //To delete user account
+	 public static void deleteAccount(Scanner sc) {
+		 System.out.print(ConsoleColors.BROWN+"Enter username : ");
+		 String username=sc.next();
+		 System.out.print("Enter password : ");
+		 String password=sc.next();
+		 
+		 UserDAO userDAO=new UserDAOImpl();
+		 
+		 try {
+			userDAO.deleteAccount(username, password);
+			System.out.println(ConsoleColors.BANANA_YELLOW+"Account deleted successfully");
+		} catch (SomethingWentWrongException e) {
+			e.printStackTrace();
+		}
+		 
 	 }
 	
 }
