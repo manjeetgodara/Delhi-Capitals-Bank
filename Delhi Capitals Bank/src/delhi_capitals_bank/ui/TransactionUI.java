@@ -22,6 +22,7 @@ public class TransactionUI {
     		  System.out.println("4. Change pin");
     		  System.out.println("5. Check transaction history");
     		  System.out.println("6. Transfer money from one account to another");
+    		  System.out.println("7. Close bank account");
     		  System.out.println("0. Exit");
     		  
     		  System.out.print("Enter Selection : ");
@@ -40,6 +41,7 @@ public class TransactionUI {
     			  break;
     		  case 6: transferMoney(sc);
     			  break;
+    		  case 7: //closeAccount(sc);
     		  case 0: BankAccountUI.alreadyBankAcountLogout();
     		  System.out.println(ConsoleColors.BANANA_YELLOW+"Thanks for your time.. Please Visit again!! Bye Bye");
     		    break;
@@ -164,8 +166,26 @@ public class TransactionUI {
 	
 			System.out.println(e);
 		}
+    	    
+      }
+      
+      //To close bank account
+      public static void closeAccount(Scanner sc) {
+    	  System.out.print(ConsoleColors.BLUE_BOLD_BRIGHT+"Enter account number : ");
+    	  Long accountNumber=sc.nextLong();
+    	  System.out.print("Enter pin number : ");
+    	  int pinNumber=sc.nextInt();
     	  
+    	  TransactionDAO tdao=new TransactionDAOImpl();
     	  
+    	  try {
+			tdao.closeAccount(accountNumber, pinNumber);
+			System.out.println(ConsoleColors.BANANA_YELLOW+"Account closed Successfully!");
+		} catch (SomethingWentWrongException e) {
+			
+			System.out.println(e);
+		}
+    	 
       }
       
 }

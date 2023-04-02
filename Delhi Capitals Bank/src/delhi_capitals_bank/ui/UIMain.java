@@ -3,6 +3,7 @@ package delhi_capitals_bank.ui;
 import java.util.Scanner;
 
 import delhi_capitals_bank.colors.ConsoleColors;
+import delhi_capitals_bank.ui.AdminUI;
 
 
 
@@ -17,35 +18,38 @@ public class UIMain {
 			System.out.println("3. View all accounts information");
 			System.out.println("------------------------");
 			System.out.println("4. View particular account by account_number");
-			System.out.println("5. Change status of inoperative accounts from last 24 months");
+			System.out.println("5. Change status of inoperative accounts from active to non-active with the help of account number");
 			System.out.println("6. View all inoperative accounts");
 			System.out.println("7. View all closed accounts");
 			System.out.println("-----------------------");
-			System.out.println("8. Transaction report day wise of all accounts");
-			System.out.println("9. See all high magnitude transaction of a day");
+			System.out.println("8. Transaction report of all accounts");
+			System.out.println("9. See all high magnitude transaction of a day(above 49999)");
+			System.out.println("10.Change status from non-active to active by account Number");
 			System.out.println("0. Logout");
 			
 			System.out.print("Enter Selection : ");
 			choice=sc.nextInt();
 			
 			switch(choice) {
-			case 1:  //
+			case 1:  AdminUI.viewAllCustomers();
 				break;
-			case 2:  //
+			case 2:  AdminUI.viewCustomerByID(sc);
 				break;
-			case 3: // 
+			case 3:  AdminUI.viewAllAccounts();
 				break;
-			case 4: // 
+			case 4:  AdminUI.viewAccountByaccountNumber(sc);
 				break;
-			case 5: // 
+			case 5:  AdminUI.changeStatus(sc); 
 				break;
-			case 6: // 
+			case 6:  AdminUI.viewAllInOperative();
 				break;
-			case 7: // 
+			case 7:  AdminUI.viewAllclosedAccounts();
 				break;
-			case 8: // 
+			case 8:  AdminUI.transactionReport(); 
 				break;
-			case 9: //
+			case 9:  AdminUI.highMagnitudeTrans();
+				break;
+			case 10: AdminUI.viewAllOperative();
 				break;
 			case 0:System.out.println(ConsoleColors.BANANA_YELLOW+"Thanks for your time!! Bye Bye admin");	
 			 break;
@@ -101,13 +105,13 @@ public class UIMain {
 			    break;
 			case 2: BankAccountUI.alreadyBankAccount(sc);
 				break;
-			case 3://
+			case 3: UserUI.changePassword(sc);
 				break;
-			case 4://
+			case 4: UserUI.updateDetails(sc);
 				break;
-			case 5://
+			case 5: UserUI.deleteAccount(sc);
 				break;
-			case 0:UserUI.userLogout();
+			case 0: UserUI.userLogout();
 				System.out.println(ConsoleColors.BANANA_YELLOW+"Thank you for your time.. Please visit again");
 				break;
 			default:System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"Invalid Selection.. Try again!");

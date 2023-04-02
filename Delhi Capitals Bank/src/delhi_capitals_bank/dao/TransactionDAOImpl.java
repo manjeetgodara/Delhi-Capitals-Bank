@@ -305,6 +305,36 @@ public class TransactionDAOImpl implements TransactionDAO {
 			 }
 			 
 	 }
+
+
+	@Override
+	public void closeAccount(Long accountNumber, int pinNumber) throws SomethingWentWrongException {
+		  Connection conn=null;
+			 
+			 try {
+				 conn=DButils.getConnectiontodb();
+				 
+				 String query="Update customerSignUp SET is_delete=1 where accountNumber=? AND pinNumber=?";
+				 
+				 PreparedStatement ps=conn.prepareStatement(query);
+				 
+				 ps.setLong(1, accountNumber);
+				 ps.setInt(2, pinNumber);
+				 
+				 ps.executeUpdate();
+				 
+			 }catch(Exception e) {
+				 throw new SomethingWentWrongException(ConsoleColors.RED_BOLD_BRIGHT+"Due to some technical issue not able to close account");
+			 }finally {
+				 try {
+					DButils.closeConnection(conn);
+				} catch (SQLException e) {
+				
+					e.printStackTrace();
+				}
+			 }
+		
+	}
 	 
 	 
 }
