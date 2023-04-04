@@ -13,7 +13,7 @@ public class TransactionUI {
 	  //all transaction operations an user can perform 
       public static void transactionOperation(Scanner sc) {
 
-    	  int choice=0;
+    	  String choice="0";
     	  
     	  do {
     		  System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"1. Deposit money");
@@ -27,27 +27,28 @@ public class TransactionUI {
     		  
     		  System.out.print("Enter Selection : ");
     		  
-    		  choice=sc.nextInt();
+    		  choice=sc.next();
     		  switch(choice) {
-    		  case 1: depositMoney(sc);
+    		  case "1": depositMoney(sc);
     			  break;
-    		  case 2: withdrawMoney(sc);
+    		  case "2": withdrawMoney(sc);
     			  break;
-    		  case 3: balanceEnquiry(sc);
+    		  case "3": balanceEnquiry(sc);
     			  break;
-    		  case 4: changePin(sc);
+    		  case "4": changePin(sc);
     			  break;
-    		  case 5: checkHistory(sc);
+    		  case "5": checkHistory(sc);
     			  break;
-    		  case 6: transferMoney(sc);
+    		  case "6": transferMoney(sc);
     			  break;
-    		  case 7: //closeAccount(sc);
-    		  case 0: BankAccountUI.alreadyBankAcountLogout();
+    		  case "7": closeAccount(sc);
+    		  break;
+    		  case "0": BankAccountUI.alreadyBankAcountLogout();
     		  System.out.println(ConsoleColors.BANANA_YELLOW+"Thanks for your time.. Please Visit again!! Bye Bye");
     		    break;
     		  default: System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"Invalid choice try again!!");
     		  }
-    	  }while(choice!=0);
+    	  }while(!choice.equals("0"));
     	   
       }
       
@@ -78,7 +79,6 @@ public class TransactionUI {
     	  
     	  try {
 			tdao.depositMoney(bal, pinNumber);
-			System.out.println(ConsoleColors.BANANA_YELLOW+"Amount Deposited Sucessfully!!");
 		} catch (SomethingWentWrongException e) {
 			
 			System.out.println(e);
@@ -98,7 +98,6 @@ public class TransactionUI {
     	  
     	  try {
 			tdao.withdrawMoney(bal, pinNumber);
-			System.out.println(ConsoleColors.BANANA_YELLOW+"Amount Withraw Sucessfully!!");
 		} catch (SomethingWentWrongException e) {
 			
 			System.out.println(e);
@@ -161,7 +160,6 @@ public class TransactionUI {
     	  
     	  try {
 			tdao.transferMoney(accountNumber, daccountNumber, amount, pinNumber);
-			System.out.println(ConsoleColors.BANANA_YELLOW+"Money transfer succesfully");
 		} catch (SomethingWentWrongException | NoRecordFoundException e) {
 	
 			System.out.println(e);
@@ -180,7 +178,6 @@ public class TransactionUI {
     	  
     	  try {
 			tdao.closeAccount(accountNumber, pinNumber);
-			System.out.println(ConsoleColors.BANANA_YELLOW+"Account closed Successfully!");
 		} catch (SomethingWentWrongException e) {
 			
 			System.out.println(e);

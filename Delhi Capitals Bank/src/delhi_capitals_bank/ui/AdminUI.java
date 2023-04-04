@@ -71,7 +71,6 @@ public class AdminUI {
 		
 		try {
 			adao.changeStatus(accountNumber);
-			System.out.println(ConsoleColors.BANANA_YELLOW+"Status changed successfully!!");
 		} catch (SomethingWentWrongException e) {
 			System.out.println(e);
 		}
@@ -86,7 +85,6 @@ public class AdminUI {
 		
 		try {
 			adao.changeNonActive(accountNumber);
-			System.out.println(ConsoleColors.BANANA_YELLOW+"Status changed successfully!!");
 		} catch (SomethingWentWrongException e) {
 			System.out.println(e);
 		}
