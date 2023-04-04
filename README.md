@@ -35,6 +35,10 @@ Logo
 
 
 ## Features
+
+### Flow Chart
+![App Screenshot](https://github.com/manjeetgodara/awesome-market-801/blob/day-4/Images/Screenshot%202023-04-04%20132816.png?raw=true)
+
 ### Admin 
 
 - Login using his/her username and password
@@ -64,7 +68,8 @@ Logo
 - Logout his account
 - delete the account
 
+
+
 ## Entity Relationship Diagram
 
 ![App Screenshot](https://github.com/manjeetgodara/awesome-market-801/blob/day-4/Images/ERDiagrams.png?raw=true)
-
