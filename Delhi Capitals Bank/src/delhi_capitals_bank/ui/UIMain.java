@@ -11,7 +11,7 @@ public class UIMain {
 	
 	//Administrator menu method
 	public static void adminMenu(Scanner sc) {
-		int choice=0;
+		String choice="0";
 		do {
 			System.out.println(ConsoleColors.TEAL+"1. View all customers information");
 			System.out.println("2. View customer by customer_id");
@@ -29,37 +29,37 @@ public class UIMain {
 			System.out.println("0. Logout");
 			
 			System.out.print("Enter Selection : ");
-			choice=sc.nextInt();
+			choice=sc.next();
 			
 			switch(choice) {
-			case 1:  AdminUI.viewAllCustomers();
+			case "1":  AdminUI.viewAllCustomers();
 				break;
-			case 2:  AdminUI.viewCustomerByID(sc);
+			case "2":  AdminUI.viewCustomerByID(sc);
 				break;
-			case 3:  AdminUI.viewAllAccounts();
+			case "3":  AdminUI.viewAllAccounts();
 				break;
-			case 4:  AdminUI.viewAccountByaccountNumber(sc);
+			case "4":  AdminUI.viewAccountByaccountNumber(sc);
 				break;
-			case 5:  AdminUI.changeStatus(sc); 
+			case "5":  AdminUI.changeStatus(sc); 
 				break;
-			case 6:  AdminUI.viewAllInOperative();
+			case "6":  AdminUI.viewAllInOperative();
 				break;
-			case 7:  AdminUI.viewAllclosedAccounts();
+			case "7":  AdminUI.viewAllclosedAccounts();
 				break;
-			case 8:  AdminUI.transactionReport(); 
+			case "8":  AdminUI.transactionReport(); 
 				break;
-			case 9:  AdminUI.highMagnitudeTrans();
+			case "9":  AdminUI.highMagnitudeTrans();
 				break;
-			case 10: AdminUI.viewAllOperative();
+			case "10": AdminUI.viewAllOperative();
 				break;
-			case 11: AdminUI.changeNonActive(sc);
+			case "11": AdminUI.changeNonActive(sc);
 			break;
-			case 0:System.out.println(ConsoleColors.BANANA_YELLOW+"Thanks for your time!! Bye Bye admin");	
+			case "0":System.out.println(ConsoleColors.BANANA_YELLOW+"Thanks for your time!! Bye Bye admin");	
 			 break;
 			default:System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"Invalid Selection... Please try again");
 			}
 		
-		}while(choice!=0);
+		}while(!choice.equals("0"));
 		
 	}
 	
@@ -97,39 +97,39 @@ public class UIMain {
 			return;
 		 }
 		
-		int choice=0;
+		String choice="0";
 		
 		do {
 			displayUserMenu();
 			System.out.print(ConsoleColors.ORANGE+"Enter Selection : ");
-			choice=sc.nextInt();
+			choice=sc.next();
 			switch(choice) {
-			case 1: BankAccountUI.openBankAccount(sc);
+			case "1": BankAccountUI.openBankAccount(sc);
 			    break;
-			case 2: BankAccountUI.alreadyBankAccount(sc);
+			case "2": BankAccountUI.alreadyBankAccount(sc);
 				break;
-			case 3: UserUI.changePassword(sc);
+			case "3": UserUI.changePassword(sc);
 				break;
-			case 4: UserUI.updateDetails(sc);
+			case "4": UserUI.updateDetails(sc);
 				break;
-			case 5: UserUI.deleteAccount(sc);
+			case "5": UserUI.deleteAccount(sc);
 				break;
-			case 0: UserUI.userLogout();
+			case "0": UserUI.userLogout();
 				System.out.println(ConsoleColors.BANANA_YELLOW+"Thank you for your time.. Please visit again");
 				break;
 			default:System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"Invalid Selection.. Try again!");
 			    break;
 			}
 			
-		}while(choice!=0);
+		}while(!choice.equals("0"));
 	}
 	
 	
 	//main method
    public static void main(String[] args) {
 	 Scanner sc=new Scanner(System.in);
-		System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Welcome to the Delhi Capitals Bank");
-	 int choice=0;
+		System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Welcome to the Bank");
+	 String choice="0";
 	 do {
 		System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"1. Admin SignIn");
 		System.out.println("2. User SignIn");
@@ -137,22 +137,22 @@ public class UIMain {
 		System.out.println("0. Exit");
 		
 		System.out.print("Enter the selection : ");
-		choice=sc.nextInt();
+		choice=sc.next();
 		
 		switch(choice) {
-		case 1: adminSignIn(sc);
+		case "1": adminSignIn(sc);
 			break;
-		case 2: userSignIn(sc);
+		case "2": userSignIn(sc);
 			break;
-		case 3: UserUI.userSignUp(sc);
+		case "3": UserUI.userSignUp(sc);
 			break;
-		case 0: System.out.println(ConsoleColors.BANANA_YELLOW+"Thanks for using our Service!!");
+		case "0": System.out.println(ConsoleColors.BANANA_YELLOW+"Thanks for using our Service!!");
 		   break;
 		default: System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"Invalid Selection!! Please try again");
 		   break;
 		}
 		
-	}while(choice!=0);
+	}while(!choice.equals("0"));
 	
 	sc.close();
 }

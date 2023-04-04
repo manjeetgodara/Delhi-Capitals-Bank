@@ -173,10 +173,15 @@ public class AdminDAOImpl implements AdminDAO {
 				
 				ps.setLong(1, accountNumber);
 				
-				ps.executeUpdate();
+				int res=ps.executeUpdate();
+				if(res!=0) {
+					System.out.println(ConsoleColors.BANANA_YELLOW+"Status Changed Successfully!!");
+				}else {
+					System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"Wrong account number");
+				}
 				
 			}catch(Exception e) {
-				throw new SomethingWentWrongException(ConsoleColors.RED_BOLD_BRIGHT+"Due to some technical issue..Not able to change customer account status");
+				throw new SomethingWentWrongException(ConsoleColors.RED_BOLD_BRIGHT+"Due to invalid data ..Not able to change customer account status");
 			}finally {
 				try {
 					DButils.closeConnection(conn);
@@ -377,7 +382,12 @@ public class AdminDAOImpl implements AdminDAO {
 				
 				ps.setLong(1, accountNumber);
 				
-				ps.executeUpdate();
+				int res=ps.executeUpdate();
+				if(res!=0) {
+					System.out.println(ConsoleColors.BANANA_YELLOW+"Status changed Successfully!!");
+				}else {
+					System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"Wrong account number");
+				}
 				
 			}catch(Exception e) {
 				throw new SomethingWentWrongException(ConsoleColors.RED_BOLD_BRIGHT+"Due to some technical issue..Not able to change customer account status");

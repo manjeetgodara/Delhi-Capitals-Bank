@@ -69,7 +69,12 @@ public class TransactionDAOImpl implements TransactionDAO {
     		 ps.setLong(1, bal);
     		 ps.setInt(2, pinNumber);
     		 
-    		 ps.executeUpdate();
+    		 int res=ps.executeUpdate();
+    		 if(res!=0) {
+     			System.out.println(ConsoleColors.BANANA_YELLOW+"Amount Deposited Successfully!!");
+     		}else {
+     			System.out.println(ConsoleColors.RED+"Wrong pin Number");
+     		}
     		 
     		 String query1="INSERT INTO transaction (customer_id, Tdate,Ttime,transaction_type, amount,pinNumber) VALUES (?, ?, ?, ?, ?, ?)";
     		 
@@ -83,6 +88,7 @@ public class TransactionDAOImpl implements TransactionDAO {
     		 ps1.setInt(6,pinNumber);
     		 
     		 ps1.executeUpdate();
+    		
     		 
     	 }catch(Exception e) {
     		 throw new SomethingWentWrongException(ConsoleColors.RED_BOLD_BRIGHT+"Invalid pin number.. Please check your pin & try again!!");
@@ -100,9 +106,28 @@ public class TransactionDAOImpl implements TransactionDAO {
      public void withdrawMoney(Long bal,int pinNumber) throws SomethingWentWrongException {
 		 
          Connection conn=null;
+         Long sourceBalance=null;
     	 
     	 try {
     		 conn=DButils.getConnectiontodb();
+    		 
+    		 String query2="SELECT balance FROM login WHERE pinNumber = ?";
+			 
+			 PreparedStatement ps2=conn.prepareStatement(query2);
+			 
+			   ps2.setLong(1, pinNumber);
+		      ResultSet rs2 = ps2.executeQuery();
+		      
+		      if (rs2.next()) {
+		          sourceBalance = rs2.getLong(1);
+		        } else {
+		         throw new NoRecordFoundException(ConsoleColors.RED_BOLD_BRIGHT+"Source account Not found");
+		        }
+		      
+		      if (sourceBalance < bal) {
+		          System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"Insufficient balance in the  account!");
+		          return;
+		        }
     		 
     		 String query="UPDATE login SET balance=(balance - ?) WHERE pinNumber=? ";
     		 
@@ -111,7 +136,13 @@ public class TransactionDAOImpl implements TransactionDAO {
     		 ps.setLong(1, bal);
     		 ps.setInt(2, pinNumber);
     		 
-    		 ps.executeUpdate();
+    		 int res=ps.executeUpdate();
+    		 if(res!=0) {
+    			 System.out.println(ConsoleColors.BANANA_YELLOW+"Amount withdraw successfully");
+    		 }else {
+    			 System.out.println(ConsoleColors.RED+"Wrong pin Number");
+    		 }
+    			 
     		 
              String query1="INSERT INTO transaction (customer_id, Tdate,Ttime,transaction_type, amount,pinNumber) VALUES (?, ?, ?, ?, ?, ?)";
     		 
@@ -180,7 +211,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			 }
 			 
 		 }catch(Exception e) {
-			 throw new SomethingWentWrongException("Due to technical error not able to change pin");
+			 throw new SomethingWentWrongException(ConsoleColors.RED_BOLD_BRIGHT+"Check there is something wrong in the data");
 		 }finally {
 			 try {
 				DButils.closeConnection(conn);
@@ -218,7 +249,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			 }
 			 
 		 }catch(Exception e) {
-			 throw new SomethingWentWrongException(ConsoleColors.RED_BOLD_BRIGHT+"Due to some technical error.. Not able to display transaction history");
+			 throw new SomethingWentWrongException(ConsoleColors.RED_BOLD_BRIGHT+"Due to invalid data.. Not able to display transaction history");
 		 }finally {
 			 try {
 				DButils.closeConnection(conn);
@@ -258,12 +289,18 @@ public class TransactionDAOImpl implements TransactionDAO {
 			          return;
 			        }
 				 
-			      String updateSql1 = "UPDATE login SET balance = balance - ? WHERE accountNumber = ?";
+			      String updateSql1 = "UPDATE login SET balance = balance - ? WHERE accountNumber = ? AND pinNumber=?";
 			      PreparedStatement pstmt1 = conn.prepareStatement(updateSql1);
 			      pstmt1.setLong(1, amount);
 			      pstmt1.setLong(2, accountNumber);
-			       pstmt1.executeUpdate();
-			     
+			      int res= pstmt1.executeUpdate();
+			      if(res!=0) {
+	    				System.out.println(ConsoleColors.BANANA_YELLOW+"Money transfer succesfully");
+
+	    		 }else {
+	    			 System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"Invalid data");
+	    			 return;
+	    		 }
 			      
 			      String updateSql2 = "UPDATE login SET balance = balance + ? WHERE accountNumber = ?";
 			      PreparedStatement pstmt2 = conn.prepareStatement(updateSql2);
@@ -285,11 +322,12 @@ public class TransactionDAOImpl implements TransactionDAO {
 		    		 ps1.setInt(6,pinNumber);
 		    		 
 		    		 ps1.executeUpdate();
+		    		
 			      
 			        conn.commit();
 			     
 			 }catch(Exception e) {
-				 throw new SomethingWentWrongException(ConsoleColors.RED_BOLD_BRIGHT+"Due to some technical error not able to transfer money");
+				 throw new SomethingWentWrongException(ConsoleColors.RED_BOLD_BRIGHT+"Due to  invalid data not able to transfer money");
 			 }finally {
 				 try {
 					DButils.closeConnection(conn);
@@ -321,10 +359,16 @@ public class TransactionDAOImpl implements TransactionDAO {
 				 ps.setLong(1, accountNumber);
 				 ps.setInt(2, pinNumber);
 				 
-				 ps.executeUpdate();
+				int res= ps.executeUpdate();
+				if(res!=0) {
+					System.out.println(ConsoleColors.BANANA_YELLOW+"Account closed Successfully!");
+
+				}else {
+					System.out.println("Invalid data");
+				}
 				 
 			 }catch(Exception e) {
-				 throw new SomethingWentWrongException(ConsoleColors.RED_BOLD_BRIGHT+"Due to some technical issue not able to close account");
+				 throw new SomethingWentWrongException(ConsoleColors.RED_BOLD_BRIGHT+"Due to  invalid data not able to close account");
 			 }finally {
 				 try {
 					DButils.closeConnection(conn);
