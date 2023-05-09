@@ -22,7 +22,7 @@ Logo
 
 ## Tech Stack
 
- JAVA , SpringBoot,JDBC , Mysql
+ JAVA ,JDBC , Mysql
 
  
 
